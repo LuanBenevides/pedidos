@@ -2,6 +2,8 @@ package io.github.luanBenevides.vendas.rest.controller;
 
 import io.github.luanBenevides.vendas.domain.entity.ItemPedido;
 import io.github.luanBenevides.vendas.domain.entity.Pedido;
+import io.github.luanBenevides.vendas.domain.entity.enums.StatusPedido;
+import io.github.luanBenevides.vendas.rest.dto.AtualizacaoStatusPedidoDTO;
 import io.github.luanBenevides.vendas.rest.dto.InformacoesItemPedidoDTO;
 import io.github.luanBenevides.vendas.rest.dto.InformacoesPedidoDTO;
 import io.github.luanBenevides.vendas.rest.dto.PedidoDTO;
@@ -43,6 +45,14 @@ public class PedidosController {
                 ));
     }
 
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateStatus(@RequestBody AtualizacaoStatusPedidoDTO dto,
+                             @PathVariable("id") Integer id) {
+        String novoStatus = dto.getNovoStatus();
+        service.atualizaStatus(id, StatusPedido.valueOf(novoStatus));
+    }
+
     private InformacoesPedidoDTO converter(Pedido pedido) {
         return InformacoesPedidoDTO.builder()
                 .id(pedido.getId())
@@ -50,6 +60,7 @@ public class PedidosController {
                 .cpf(pedido.getCliente().getCpf())
                 .nomeCliente(pedido.getCliente().getNome())
                 .total(pedido.getTotal())
+                .status(pedido.getStatus().name())
                 .items(converterListaDeItens(pedido.getItens()))
                 .build();
     }

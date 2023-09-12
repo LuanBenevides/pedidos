@@ -1,5 +1,6 @@
 package io.github.luanBenevides.vendas.domain.entity;
 
+import io.github.luanBenevides.vendas.domain.entity.enums.StatusPedido;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,4 +30,8 @@ public class Pedido {
 
     @Column(name = "total")
     private BigDecimal total;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private StatusPedido status;
 }

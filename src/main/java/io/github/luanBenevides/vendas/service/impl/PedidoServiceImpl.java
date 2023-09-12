@@ -4,11 +4,13 @@ import io.github.luanBenevides.vendas.domain.entity.Cliente;
 import io.github.luanBenevides.vendas.domain.entity.ItemPedido;
 import io.github.luanBenevides.vendas.domain.entity.Pedido;
 import io.github.luanBenevides.vendas.domain.entity.Produto;
+import io.github.luanBenevides.vendas.domain.entity.enums.StatusPedido;
 import io.github.luanBenevides.vendas.domain.repository.ClienteRepository;
 import io.github.luanBenevides.vendas.domain.repository.ItemPedidoRepository;
 import io.github.luanBenevides.vendas.domain.repository.PedidoRepository;
 import io.github.luanBenevides.vendas.domain.repository.ProdutoRepository;
 import io.github.luanBenevides.vendas.exception.BusinessException;
+import io.github.luanBenevides.vendas.exception.PedidoNotFoundException;
 import io.github.luanBenevides.vendas.rest.dto.ItemPedidoDTO;
 import io.github.luanBenevides.vendas.rest.dto.PedidoDTO;
 import io.github.luanBenevides.vendas.service.PedidoService;
@@ -41,7 +43,7 @@ public class PedidoServiceImpl implements PedidoService {
         pedido.setTotal(pedidoDTO.getTotal());
         pedido.setDataPedido(LocalDate.now());
         pedido.setCliente(cliente);
-
+        pedido.setStatus(StatusPedido.PENDENTE);
         List<ItemPedido> itensPedido = converterItens(pedido, pedidoDTO.getItens());
         repository.save(pedido);
         itemPedidoRepository.saveAll(itensPedido);
@@ -52,6 +54,16 @@ public class PedidoServiceImpl implements PedidoService {
     @Override
     public Optional<Pedido> getPedidoCompleto(Integer id) {
         return repository.findByIdFetchItens(id);
+    }
+
+    @Override
+    @Transactional
+    public void atualizaStatus(Integer id, StatusPedido statusPedido) {
+        repository.findById(id)
+                .map(pedido -> {
+                    pedido.setStatus(statusPedido);
+                    return repository.save(pedido);
+                }).orElseThrow(() -> new PedidoNotFoundException());
     }
 
     //Método auxiliar

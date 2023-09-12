@@ -14,6 +14,7 @@ CREATE TABLE pedido(
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     cliente_id INTEGER REFERENCES cliente(id),
     data_pedido TIMESTAMP,
+    status VARCHAR(40),
     total NUMERIC(20, 14)
 );
 
