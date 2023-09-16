@@ -2,6 +2,7 @@ package io.github.luanBenevides.vendas.rest.controller;
 
 import io.github.luanBenevides.vendas.domain.entity.Cliente;
 import io.github.luanBenevides.vendas.domain.repository.ClienteRepository;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class ClienteController {
 
     @PostMapping("/salvar")
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente createCliente(@RequestBody Cliente cliente) {
+    public Cliente createCliente(@RequestBody @Valid Cliente cliente) {
        return repository.save(cliente);
     }
 
@@ -51,7 +52,7 @@ public class ClienteController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateCliente(  @PathVariable Integer id,
-                                                   @RequestBody Cliente cliente) {
+                                                   @RequestBody @Valid Cliente cliente) {
         repository.findById(id)
                 .map(clienteDB -> {
                     cliente.setId(clienteDB.getId());

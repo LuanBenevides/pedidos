@@ -8,6 +8,7 @@ import io.github.luanBenevides.vendas.rest.dto.InformacoesItemPedidoDTO;
 import io.github.luanBenevides.vendas.rest.dto.InformacoesPedidoDTO;
 import io.github.luanBenevides.vendas.rest.dto.PedidoDTO;
 import io.github.luanBenevides.vendas.service.PedidoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class PedidosController {
 
     @PostMapping("/salvar")
     @ResponseStatus(HttpStatus.CREATED)
-    public Integer createPedido(@RequestBody PedidoDTO pedidoDTO) {
+    public Integer createPedido(@RequestBody @Valid PedidoDTO pedidoDTO) {
         Pedido savedPedido = service.cretePedido(pedidoDTO);
         return savedPedido.getId();
     }

@@ -2,6 +2,7 @@ package io.github.luanBenevides.vendas.rest.controller;
 
 import io.github.luanBenevides.vendas.domain.entity.Produto;
 import io.github.luanBenevides.vendas.domain.repository.ProdutoRepository;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class ProdutoController {
 
     @PostMapping("/salvar")
     @ResponseStatus(HttpStatus.CREATED)
-    public Produto createProduto(@RequestBody Produto produto) {
+    public Produto createProduto(@RequestBody @Valid Produto produto) {
         return repository.save(produto);
     }
 
@@ -46,7 +47,7 @@ public class ProdutoController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateProduto(@PathVariable("id") Integer id,
-                                 @RequestBody Produto produto) {
+                                 @RequestBody @Valid Produto produto) {
          repository.findById(id)
                 .map(produtoDb -> {
                     produto.setId(produtoDb.getId());
