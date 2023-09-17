@@ -19,12 +19,12 @@ public class Cliente {
     private Integer id;
 
     @Column(length = 100)
-    @NotEmpty(message = "O campo de nome é obrigatório")
+    @NotEmpty(message = "{campo.cliente-nome.obrigatorio}")
     private String nome;
 
     @Column(name = "cpf", length = 11)
-    @NotEmpty(message = "O campo de CPF é obrigatório")
-    @CPF(message = "Informe um CPF válido")
+    @NotEmpty(message = "{campo.cliente-cpf.obrigatorio}")
+    @CPF(message = "{campo.cliente-cpf.invalido}")
     private String cpf;
     @JsonIgnore
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)

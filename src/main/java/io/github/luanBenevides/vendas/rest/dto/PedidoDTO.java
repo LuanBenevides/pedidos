@@ -11,10 +11,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PedidoDTO {
-    @NotNull(message = "Informe o código do cliente")
+    @NotNull(message = "{campo.pedidoDTO-cliente}")
     private Integer cliente;
-    @NotNull(message = "O total do pedido é um campo obrigatório")
+    @NotNull(message = "{campo.pedidoDTO-total}")
     private BigDecimal total;
-    @NotEmptyList(message = "O pedido não pode ser realizado em inserir ao menos um item.")
+    @NotEmptyList(message = "{campo.pedidoDTO-itens}")
     private List<ItemPedidoDTO> itens;
 }
