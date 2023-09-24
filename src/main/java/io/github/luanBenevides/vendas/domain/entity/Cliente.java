@@ -1,11 +1,11 @@
 package io.github.luanBenevides.vendas.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 @Data
 @AllArgsConstructor
@@ -15,14 +15,14 @@ import java.util.Set;
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(length = 100)
     @NotEmpty(message = "{campo.cliente-nome.obrigatorio}")
     private String nome;
 
-    @Column(name = "cpf", length = 11)
+    @Column(name = "cpf", length = 14)
     @NotEmpty(message = "{campo.cliente-cpf.obrigatorio}")
     @CPF(message = "{campo.cliente-cpf.invalido}")
     private String cpf;

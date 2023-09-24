@@ -1,7 +1,8 @@
 package io.github.luanBenevides.vendas.domain.entity;
 
-import jakarta.persistence.*;
 import lombok.*;
+
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor

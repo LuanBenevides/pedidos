@@ -8,12 +8,12 @@ import io.github.luanBenevides.vendas.rest.dto.InformacoesItemPedidoDTO;
 import io.github.luanBenevides.vendas.rest.dto.InformacoesPedidoDTO;
 import io.github.luanBenevides.vendas.rest.dto.PedidoDTO;
 import io.github.luanBenevides.vendas.service.PedidoService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/pedidos")
+@CrossOrigin(origins = "*")
 public class PedidosController {
 
     private PedidoService service;

@@ -2,17 +2,18 @@ package io.github.luanBenevides.vendas.rest.controller;
 
 import io.github.luanBenevides.vendas.domain.entity.Cliente;
 import io.github.luanBenevides.vendas.domain.repository.ClienteRepository;
-import jakarta.validation.Valid;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/clientes")
+@CrossOrigin(origins = "*")
 public class ClienteController {
 
     private final ClienteRepository repository;
