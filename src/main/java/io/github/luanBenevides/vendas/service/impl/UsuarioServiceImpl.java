@@ -2,6 +2,7 @@ package io.github.luanBenevides.vendas.service.impl;
 
 import io.github.luanBenevides.vendas.domain.entity.Usuario;
 import io.github.luanBenevides.vendas.domain.repository.UsuarioRespository;
+import io.github.luanBenevides.vendas.exception.SenhaInvalidarException;
 import io.github.luanBenevides.vendas.rest.dto.UsuarioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -24,6 +25,16 @@ public class UsuarioServiceImpl implements UserDetailsService {
     public UsuarioDTO salvar(Usuario usuario) {
         respository.save(usuario);
         return new UsuarioDTO(usuario.getLogin(), usuario.isAdmin());
+    }
+
+    public UserDetails autenticar( Usuario usuario ) {
+        UserDetails user = loadUserByUsername(usuario.getLogin());
+        boolean senhasConferidas = encoder.matches(usuario.getSenha(), user.getPassword());
+
+        if(senhasConferidas) {
+            return user;
+        }
+        throw new SenhaInvalidarException();
     }
 
     @Override
